@@ -1,0 +1,9 @@
+[submodule "proto/googleapis"]
+	path = proto/googleapis
+	url = https://github.com/googleapis/googleapis
+[submodule "proto/protobuf"]
+	path = proto/protobuf
+	url = https://github.com/gogo/protobuf
+[submodule "proto/osmosis"]
+	path = proto/osmosis
+	url = https://github.com/osmosis-labs/osmosis

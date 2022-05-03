@@ -7,3 +7,6 @@
 [submodule "proto/osmosis"]
 	path = proto/osmosis
 	url = https://github.com/osmosis-labs/osmosis
+[submodule "proto/cosmos-proto"]
+	path = proto/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto

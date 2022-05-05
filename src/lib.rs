@@ -1,5 +1,4 @@
-use serde::{Serialize, Deserialize};
-
+use serde::{Deserialize, Serialize};
 pub mod osmosis {
     pub mod gamm {
         pub mod v1beta1 {
@@ -34,17 +33,40 @@ pub mod cosmos {
     }
 }
 
-
-
 #[derive(Serialize, Deserialize, Debug)]
 pub struct MyPoolSummary {
-    pub pool_id: String,
-    pub pair_symbols: Vec<String>,
-    pub pair_raw: Vec<String>,
+    pub address: String,
+    pub id: u64,
+    pub pool_params: MyPoolParams,
+    pub future_pool_governor: String,
+    pub total_shares: MyTotalShares,
+    pub pool_assets: Vec<MyPoolAssets>,
+    pub total_weight: f64,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct MyPoolAssets {
+    pub token: MyToken,
+    pub weight: f64,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct MyToken {
+    pub denom: String,
+    pub amount: f64,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct MyTotalShares {
+    pub denom: String,
+    pub amount: f64,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct MyPoolParams {
     pub swap_fee: f64,
     pub exit_fee: f64,
     pub smooth_weight_change_params: Option<String>,
-    pub total_shares: f64,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -56,9 +78,8 @@ pub struct PoolsWrapper {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Pagination {
     pub next_key: Option<String>,
-    pub total: String
+    pub total: String,
 }
-
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Pool {
@@ -66,18 +87,25 @@ pub struct Pool {
     pub type_info: String,
     pub address: String,
     pub id: String,
-    pub poolParams: PoolParams,
+    #[serde(alias = "poolParams")]
+    pub pool_params: PoolParams,
     pub future_pool_governor: String,
-    pub totalShares: TotalShares,
-    pub poolAssets: Vec<PoolAssets>,
-    pub totalWeight: String
+    #[serde(alias = "totalShares")]
+    pub total_shares: TotalShares,
+    #[serde(alias = "poolAssets")]
+    pub pool_assets: Vec<PoolAssets>,
+    #[serde(alias = "totalWeight")]
+    pub total_weight: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PoolParams {
-    pub swapFee: String,
-    pub exitFee: String,
-    pub smoothWeightChangeParams: Option<String>
+    #[serde(alias = "swapFee")]
+    pub swap_fee: String,
+    #[serde(alias = "exitFee")]
+    pub exit_fee: String,
+    #[serde(alias = "smoothWeightChangeParams")]
+    pub smooth_weight_change_params: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
